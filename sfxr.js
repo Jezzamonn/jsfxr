@@ -1,3 +1,5 @@
+import { RIFFWAVE } from "./riffwave.js";
+
 // Wave shapes
 var SQUARE = 0;
 var SAWTOOTH = 1;
@@ -13,7 +15,7 @@ var OVERSAMPLING = 8;
 
 // Sound generation parameters are on [0,1] unless noted SIGNED & thus
 // on [-1,1]
-function Params() {
+export function Params() {
   this.oldParams = true;  // Note what structure this is
 
   // Wave shape
@@ -467,7 +469,7 @@ Params.prototype.mutate = function () {
 
 /*** Simpler namespaced functional API ***/
 
-sfxr = {};
+export const sfxr = {};
 
 sfxr.toBuffer = function(synthdef) {
   return (new SoundEffect(synthdef)).getRawBuffer()["buffer"];
@@ -533,7 +535,7 @@ sfxr.generate = function(algorithm, options) {
 
 /*** Main entry point ***/
 
-function SoundEffect(ps) {
+export function SoundEffect(ps) {
   if (typeof(ps) == "string") {
     var PARAMS = new Params();
     if (ps.indexOf("#") == 0) {
@@ -1083,48 +1085,16 @@ var units = {
   }
 };
 
-/*** Plumbing ***/
+// Other exports, to match the previous exports structure.
 
-(function (root, factory) {
-  if(typeof define === "function" && define.amd) {
-    // Now we're wrapping the factory and assigning the return
-    // value to the root (window) and returning it as well to
-    // the AMD loader.
-    define(["./riffwave"], function(RIFFWAVE){
-      return (root.jsfxr = factory(RIFFWAVE));
-    });
-  } else if(typeof module === "object" && module.exports) {
-    // I've not encountered a need for this yet, since I haven't
-    // run into a scenario where plain modules depend on CommonJS
-    // *and* I happen to be loading in a CJS browser environment
-    // but I'm including it for the sake of being thorough
-    RIFFWAVE = require("./riffwave.js");
-    module.exports = (root.jsfxr = factory(RIFFWAVE));
-  } else {
-    root.jsfxr = factory(root.RIFFWAVE);
-  }
-}(this, function(RIFFWAVE) {
-  // module code here....
-  return {
-    "sfxr": sfxr,
-    "convert": {
-      "sliders": sliders,
-      "domain": domain,
-      "sliders_inverse": sliders_inverse,
-      "domain_inverse": domain_inverse,
-      "units": units,
-    },
-    "parameters": {
-      "order": params_order,
-      "signed": params_signed,
-    },
-    "Params": Params,
-    "SoundEffect": SoundEffect,
-    "waveforms": {
-      "SQUARE": SQUARE,
-      "SAWTOOTH": SAWTOOTH,
-      "SINE": SINE,
-      "NOISE": NOISE
-    }
-  };
-}));
+export const convert = {
+  sliders, domain, sliders_inverse, domain_inverse, units,
+}
+
+export const parameters = {
+  params_order, params_signed
+}
+
+export const waveforms = {
+  SQUARE, SAWTOOTH, SINE, NOISE
+}

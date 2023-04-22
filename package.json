@@ -2,13 +2,17 @@
   "name": "jsfxr",
   "version": "1.2.1",
   "description": "8-bit sound effects generator based on sfxr",
-  "main": "sfxr.js",
-  "homepage": "https://github.com/chr15m/jsfxr",
+  "exports": [
+    "./sfxr.js",
+    "./riffwave.js"
+  ],
+  "homepage": "https://github.com/jezzamonn/jsfxr",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chr15m/jsfxr.git",
-    "web": "https://github.com/chr15m/jsfxr"
+    "url": "https://github.com/jezzamonn/jsfxr.git",
+    "web": "https://github.com/jezzamonn/jsfxr"
   },
+  "type": "module",
   "bugs": {
     "url": "https://github.com/chr15m/jsfxr/issues/"
   },
